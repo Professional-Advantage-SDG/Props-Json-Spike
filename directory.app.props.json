@@ -1,0 +1,15 @@
+{
+    "variables": {
+        "major": "25",
+        "minor": "1",
+        "build": "1",
+        "revision": "2",
+        "version": "$(major).$(minor).$(build).$(revision)"
+    },
+    "properties": {
+        "publisher": "Fabrikam",
+        "runtime": "15.2",
+        "application": "25.0.0.0",
+        "platform": "25.0.0.0"
+    }
+}

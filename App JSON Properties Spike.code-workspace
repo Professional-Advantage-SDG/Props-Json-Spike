@@ -1,0 +1,73 @@
+{
+	"folders": [
+		{
+			"name": "App1",
+			"path": "App1"
+		},
+		{
+			"name": "App2",
+			"path": "App2"
+		},
+		{
+			"name": "App3",
+			"path": "App3"
+		},
+		{
+			"name": "📁 Compiled App Files",
+			"path": ".compiledAppFiles"
+		},
+		{
+			"name": "📦 Shared Packages",
+			"path": ".alpackagesShared"
+		}
+	],
+    "settings" : {
+       "al.packageCachePath": [
+          "..\\.alpackagesShared"
+       ],
+       "al.compilationOptions": {
+          "outFolder": "..\\.compiledAppFiles"
+        }
+    },
+    "launch": {
+        "version": "0.2.0",
+        "configurations": [
+            {
+                "name": "SandboxAUv26 (90 day tenant)",
+                "type": "al",
+                "request": "launch",
+                "environmentType": "Sandbox",
+                "environmentName": "SandboxAUv26",
+                "startupObjectId": 22,
+                "breakOnError": "All",
+                "breakOnRecordWrite": "None",
+                "launchBrowser": true,
+                "enableSqlInformationDebugger": true,
+                "enableLongRunningSqlStatements": true,
+                "longRunningSqlStatementsThreshold": 500,
+                "numberOfSqlStatements": 10,
+                "tenant": "39d6eebc-95b6-4f60-846f-d1a2beef009b"
+            }
+        ]
+    },
+    "tasks": {
+        "version": "2.0.0",
+        "tasks": [
+            {
+			    "label": "Build All BC Apps in Workspace",
+				"type": "shell",
+				"command": "$rootPath = (Get-Location).Path; Get-ChildItem -Directory | Where-Object { Test-Path (Join-Path $_.FullName 'app.json') } | ForEach-Object { Write-Host \"Building $($_.Name)...\"; al compile /project:$($_.FullName) /packagecachepath:\"$(Join-Path $rootPath '.alpackagesShared')\" /outFolder:\"$(Join-Path $rootPath '.compiledAppFiles')\" }",
+				"options": {
+					"cwd": "${workspaceFolder:App1}/.."
+				},
+				"group": {
+					"kind": "build"
+				},
+				"problemMatcher": "$msCompile",
+				"presentation": {
+					"reveal": "always"
+				}
+            }
+        ]
+	}
+}
